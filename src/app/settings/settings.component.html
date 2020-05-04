@@ -1,35 +1,77 @@
 <div class='card'>
-    <div class='card-header'>
-      SETTINGS
+  <div class='card-header'>
+    STEP 1 : Basic Information
+  </div>
+
+  <div class='card-body'>
+    <div class='row'>
+      <div class='col'>Age:</div>
+      <div class='col'>
+        <input type='number' [(ngModel)]='user.age' (input)="onTextChanged()" />
+      </div>
     </div>
-  
-    <div class='card-body'>
-      <div class='row'>
-        <div class='col'>Age:</div>
-        <div class='col'>
-          <input type='number' [(ngModel)]='user.age' (input)="onTextChanged()" />
-        </div>
+
+    <div class='row'>
+      <div class='col'>Weight:</div>
+      <div class='col'>
+        <input type='number' [(ngModel)]='user.weight' (input)="onTextChanged()" />
       </div>
-  
-      <div class='row'>
-        <div class='col'>Weight:</div>
-        <div class='col'>
-          <input type='number' [(ngModel)]='user.weight' (input)="onTextChanged()" />
-        </div>
+    </div>
+
+    <div class='row'>
+      <div class='col'>Height:</div>
+      <div class='col'>
+        <input type='number' [(ngModel)]='user.height' (input)="onTextChanged()" />
       </div>
-  
-      <div class='row'>
-        <div class='col'>Height:</div>
-        <div class='col'>
-          <input type='number' [(ngModel)]='user.height' (input)="onTextChanged()" />
-        </div>
+    </div>
+
+    <div class='row'>
+      <div class='col'>Gender:</div>
+      <div class='col'>
+        <input type='number' (input)="onTextChanged()" />
       </div>
-  
-      <div class='row'>
-        <div class='col'>Bodyfat (optional):</div>
-        <div class='col'>
-          <input type='number' [(ngModel)]='user.bodyfat' (input)="onTextChanged()" />
-        </div>
+    </div>
+
+    <div class='row'>
+      <div class='col'>Bodyfat (optional):</div>
+      <div class='col'>
+        <input type='number' [(ngModel)]='user.bodyfat' (input)="onTextChanged()" />
       </div>
     </div>
   </div>
+
+
+  <div class='card-header'>
+    STEP 2 : Lifestyle
+  </div>
+  <div class='card-body'>
+    <div class='row'>
+      <input type='range' min="1" max="4" value=1 [(ngModel)]='user.lifestyle' (input)="onTextChanged()" />
+    </div>
+
+    <div class='row'>Sedentary - light - active - very active</div>
+  </div>
+
+  <div class='card-header'>
+    STEP 3 : Plan Details
+  </div>
+  <div class='card-body'>
+    <div class='row'>
+      <div class='col'>Macro preference:</div>
+      <div class='col'>
+        <input type='range' min="1" max="5" value=2 [(ngModel)]='user.macroPreferences' (input)="onTextChanged()" />
+      </div>
+    </div>
+    <div class='row'>highes fat - higher fat - balanced - higher carb - highest carb</div>
+
+    <div class='row'>
+      <div class='col'>Number of meals:</div>
+      <div class='col'>
+        <input type='range' min="4" max="6" value=5 [(ngModel)]='user.numberOfMeals' (input)="onTextChanged()" />
+      </div>
+    </div>
+    <div class='row'>4 - 5 - 6</div>
+
+  </div>
+
+</div>

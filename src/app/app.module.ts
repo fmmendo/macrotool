@@ -5,11 +5,15 @@ import { FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SettingsComponent } from './settings/settings.component';
+import { PlanSummaryComponent } from './plan-summary/plan-summary.component';
+import { PlanDetailsComponent } from './plan-details/plan-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SettingsComponent
+    SettingsComponent,
+    PlanSummaryComponent,
+    PlanDetailsComponent
   ],
   imports: [
     BrowserModule,
