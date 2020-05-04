@@ -1,0 +1,35 @@
+<div class='card'>
+    <div class='card-header'>
+      SETTINGS
+    </div>
+  
+    <div class='card-body'>
+      <div class='row'>
+        <div class='col'>Age:</div>
+        <div class='col'>
+          <input type='number' [(ngModel)]='user.age' (input)="onTextChanged()" />
+        </div>
+      </div>
+  
+      <div class='row'>
+        <div class='col'>Weight:</div>
+        <div class='col'>
+          <input type='number' [(ngModel)]='user.weight' (input)="onTextChanged()" />
+        </div>
+      </div>
+  
+      <div class='row'>
+        <div class='col'>Height:</div>
+        <div class='col'>
+          <input type='number' [(ngModel)]='user.height' (input)="onTextChanged()" />
+        </div>
+      </div>
+  
+      <div class='row'>
+        <div class='col'>Bodyfat (optional):</div>
+        <div class='col'>
+          <input type='number' [(ngModel)]='user.bodyfat' (input)="onTextChanged()" />
+        </div>
+      </div>
+    </div>
+  </div>
