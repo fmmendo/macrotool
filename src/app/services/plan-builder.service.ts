@@ -14,7 +14,7 @@ export class PlanBuilderService {
 
   bmr = 0;
   bmr_lifestyle = 0;
-  
+
   proteinGrams: number;
   carbsGrams: number;
   fatGrams: number;
@@ -60,38 +60,38 @@ export class PlanBuilderService {
 
   generateMacros(user: User, selectedDayType: string) {
 
-    this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
-    this.customDetails = user.plan.details.filter(item => item.dayType == selectedDayType)[0];
+    // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
+    // this.customDetails = user.plan.details.filter(item => item.dayType == selectedDayType)[0];
 
     const weightInPounds = this.toPounds(user.weight);
     const minimumFat = 0.3 * weightInPounds;
     this.proteinGrams = weightInPounds;
 
     let calorieModifier = 1;
-    let reccomendedCarbsModifier = 1;
+    let recomendedCarbsModifier = 1;
     this.minCarbsModifier = 1;
     switch (selectedDayType) {
       case 'rest':
         calorieModifier = 1.0;
-        reccomendedCarbsModifier = 0.5;
+        recomendedCarbsModifier = 0.5;
         this.minCarbsModifier = 0.3;
         break;
 
       case 'light':
         calorieModifier = 1.2;
-        reccomendedCarbsModifier = 1;
+        recomendedCarbsModifier = 1;
         this.minCarbsModifier = 0.5;
         break;
 
       case 'moderate':
         calorieModifier = 1.35;
-        reccomendedCarbsModifier = 1.5;
+        recomendedCarbsModifier = 1.5;
         this.minCarbsModifier = 1.0;
         break;
 
       case 'hard':
         calorieModifier = 1.45;
-        reccomendedCarbsModifier = 2;
+        recomendedCarbsModifier = 2;
         this.minCarbsModifier = 1.5;
         break;
 
@@ -137,25 +137,45 @@ export class PlanBuilderService {
     //     break;
     // }
 
-    let carbsModifier: number;
-
-    if (this.customDetails != null && this.customDetails.userCarbsModifier > 0) {
-      if (this.customDetails.userCarbsModifier >= this.minCarbsModifier) {
-        carbsModifier = this.customDetails.userCarbsModifier;
-      } else {
-        carbsModifier = reccomendedCarbsModifier;
-      }
-    } else {
-      if (this.userCarbsModifier >= this.minCarbsModifier) {
-        carbsModifier = this.userCarbsModifier;
-      } else {
-        carbsModifier = reccomendedCarbsModifier;
-      }
-    }
     let startingCalories = (this.bmr_lifestyle * calorieModifier) + dietPhaseCalorieAdjustment;
 
     let availableCalories = startingCalories - (4 * this.proteinGrams) - (9 * minimumFat);
-    this.maxCarbsModifier = (availableCalories / 4 / weightInPounds);
+    let maxCarbsModifier = (availableCalories / 4 / weightInPounds);
+
+    let carbsModifier: number;
+
+    switch (user.macroPreferences) {
+      case 1:
+        carbsModifier = this.minCarbsModifier;
+        break;
+      case 2:
+        carbsModifier = this.minCarbsModifier + ((recomendedCarbsModifier - this.minCarbsModifier) / 2);
+        break;
+      case 3:
+        carbsModifier = recomendedCarbsModifier;
+        break;
+      case 4:
+        carbsModifier = recomendedCarbsModifier + ((maxCarbsModifier - recomendedCarbsModifier) / 3);
+        break;
+      case 5:
+        carbsModifier = recomendedCarbsModifier + 2 * ((maxCarbsModifier - recomendedCarbsModifier) / 3);
+        break;
+    }
+
+    // if (this.customDetails != null && this.customDetails.userCarbsModifier > 0) {
+    //   if (this.customDetails.userCarbsModifier >= this.minCarbsModifier) {
+    //     carbsModifier = this.customDetails.userCarbsModifier;
+    //   } else {
+    //     carbsModifier = recomendedCarbsModifier;
+    //   }
+    // } else {
+    //   if (this.userCarbsModifier >= this.minCarbsModifier) {
+    //     carbsModifier = this.userCarbsModifier;
+    //   } else {
+    //     carbsModifier = recomendedCarbsModifier;
+    //   }
+    // }
+
     this.carbsGrams = Math.min(carbsModifier * weightInPounds, availableCalories / 4);
 
     availableCalories -= this.carbsGrams * 4;
@@ -167,90 +187,98 @@ export class PlanBuilderService {
 
   generateMealPlan(user: User, selectedDayType: string) {
 
-    this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
-    this.customDetails = user.plan.details.filter(item => item.dayType == selectedDayType)[0];
+    // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
+    let details = user.plan.details.get(selectedDayType);
 
-    let numberOfMeals = this.customDetails.numberOfMealsOverride || user.planDetails.numberOfMeals;
-    let useShake = this.customDetails.useWorkoutShakeOverride || user.planDetails.useWorkoutShake;
-    let workoutAfterMeal = this.customDetails.workoutAfterMealOverride || user.planDetails.workoutAfterMeal;
+    let numberOfMeals = user.numberOfMeals; //todo: default?
+    let useShake = details.useWorkoutShake; //todo: default?
+    let workoutAfterMeal = details.workoutAfterMeal; //todo: default?
 
     this.mealPlan = new Array();
     for (let i = 0; i < numberOfMeals; i++) {
       const meal = new Meal();
 
       meal.name = `${i + 1}`;
-      meal.carbs = -1;
-      meal.fat = -1;
 
+      if (selectedDayType == "rest") {
+        meal.carbs = Math.round(this.carbsGrams / numberOfMeals);
+        meal.fat = Math.round(this.fatGrams / numberOfMeals);
+      }
+      else {
+        meal.carbs = -1;
+        meal.fat = -1;
+      }
       meal.protein = Math.round(this.proteinGrams / numberOfMeals);
       this.mealPlan.push(meal);
     }
 
-    this.mealPlan[workoutAfterMeal - 1].fat = this.fatGrams * .10;
-    this.mealPlan[workoutAfterMeal].fat = this.fatGrams * .10;
+    if (selectedDayType != "rest") {
+      this.mealPlan[workoutAfterMeal - 1].fat = this.fatGrams * .10;
+      this.mealPlan[workoutAfterMeal].fat = this.fatGrams * .10;
 
-    if (numberOfMeals === 4) {
-      this.mealPlan[workoutAfterMeal - 1].carbs = this.carbsGrams * .25;
-      this.mealPlan[workoutAfterMeal].carbs = this.carbsGrams * .35;
+      if (numberOfMeals === 4) {
+        this.mealPlan[workoutAfterMeal - 1].carbs = this.carbsGrams * .25;
+        this.mealPlan[workoutAfterMeal].carbs = this.carbsGrams * .35;
 
-      this.mealPlan[numberOfMeals - 1].carbs = this.carbsGrams * .25;
+        this.mealPlan[numberOfMeals - 1].carbs = this.carbsGrams * .25;
 
-      this.mealPlan[workoutAfterMeal - 1].tag = 'pre-workout';
-      this.mealPlan[workoutAfterMeal].tag = 'post-workout';
-    } else if (numberOfMeals === 5) {
-      this.mealPlan[workoutAfterMeal - 1].carbs = this.carbsGrams * .2;
-      this.mealPlan[workoutAfterMeal].carbs = this.carbsGrams * .3;
+        this.mealPlan[workoutAfterMeal - 1].tag = 'pre-workout';
+        this.mealPlan[workoutAfterMeal].tag = 'post-workout';
+      } else if (numberOfMeals === 5) {
+        this.mealPlan[workoutAfterMeal - 1].carbs = this.carbsGrams * .2;
+        this.mealPlan[workoutAfterMeal].carbs = this.carbsGrams * .3;
 
-      this.mealPlan[numberOfMeals - 1].carbs = this.carbsGrams * .2;
+        this.mealPlan[numberOfMeals - 1].carbs = this.carbsGrams * .2;
 
-      this.mealPlan[workoutAfterMeal - 1].tag = 'pre-workout';
-      this.mealPlan[workoutAfterMeal].tag = 'post-workout';
-    } else if (numberOfMeals === 6) {
-      this.mealPlan[workoutAfterMeal - 1].carbs = this.carbsGrams * .18;
-      this.mealPlan[workoutAfterMeal].carbs = this.carbsGrams * .25;
+        this.mealPlan[workoutAfterMeal - 1].tag = 'pre-workout';
+        this.mealPlan[workoutAfterMeal].tag = 'post-workout';
+      } else if (numberOfMeals === 6) {
+        this.mealPlan[workoutAfterMeal - 1].carbs = this.carbsGrams * .18;
+        this.mealPlan[workoutAfterMeal].carbs = this.carbsGrams * .25;
 
-      this.mealPlan[numberOfMeals - 1].carbs = this.carbsGrams * .18;
+        this.mealPlan[numberOfMeals - 1].carbs = this.carbsGrams * .18;
 
-      this.mealPlan[workoutAfterMeal - 1].tag = 'pre-workout';
-      this.mealPlan[workoutAfterMeal].tag = 'post-workout';
-    }
+        this.mealPlan[workoutAfterMeal - 1].tag = 'pre-workout';
+        this.mealPlan[workoutAfterMeal].tag = 'post-workout';
+      }
 
-    for (let i = 0; i < numberOfMeals; i++) {
-      if (this.mealPlan[i].carbs < 0) {
-        if (numberOfMeals === 4) {
-          this.mealPlan[i].carbs = this.carbsGrams * .15;
-        } else if (numberOfMeals === 5) {
-          this.mealPlan[i].carbs = this.carbsGrams * (.3 / 2);
-        } else if (numberOfMeals === 6) {
-          this.mealPlan[i].carbs = this.carbsGrams * (.39 / 3);
+      for (let i = 0; i < numberOfMeals; i++) {
+        if (this.mealPlan[i].carbs < 0) {
+          if (numberOfMeals === 4) {
+            this.mealPlan[i].carbs = this.carbsGrams * .15;
+          } else if (numberOfMeals === 5) {
+            this.mealPlan[i].carbs = this.carbsGrams * (.3 / 2);
+          } else if (numberOfMeals === 6) {
+            this.mealPlan[i].carbs = this.carbsGrams * (.39 / 3);
+          }
         }
       }
-    }
-    for (let i = 0; i < numberOfMeals; i++) {
-      if (this.mealPlan[i].fat < 0) {
-        if (numberOfMeals === 4) {
-          this.mealPlan[i].fat = this.fatGrams * (.8 / 2);
-        } else if (numberOfMeals === 5) {
-          this.mealPlan[i].fat = this.fatGrams * (.8 / 3);
-        } else if (numberOfMeals === 6) {
-          this.mealPlan[i].fat = this.fatGrams * (.8 / 4);
+      for (let i = 0; i < numberOfMeals; i++) {
+        if (this.mealPlan[i].fat < 0) {
+          if (numberOfMeals === 4) {
+            this.mealPlan[i].fat = this.fatGrams * (.8 / 2);
+          } else if (numberOfMeals === 5) {
+            this.mealPlan[i].fat = this.fatGrams * (.8 / 3);
+          } else if (numberOfMeals === 6) {
+            this.mealPlan[i].fat = this.fatGrams * (.8 / 4);
+          }
         }
       }
-    }
 
-    if (useShake && selectedDayType != 'rest') {
-      const shakeCarbs = this.mealPlan[workoutAfterMeal - 1].carbs / 2;
-      const shakeProtein = this.mealPlan[workoutAfterMeal - 1].protein / 2;
-      this.mealPlan[workoutAfterMeal - 1].carbs = shakeCarbs;
-      this.mealPlan[workoutAfterMeal - 1].protein = shakeProtein;
+      if (useShake && selectedDayType != 'rest') {
+        const shakeCarbs = this.mealPlan[workoutAfterMeal - 1].carbs / 2;
+        const shakeProtein = this.mealPlan[workoutAfterMeal - 1].protein / 2;
+        this.mealPlan[workoutAfterMeal - 1].carbs = shakeCarbs;
+        this.mealPlan[workoutAfterMeal - 1].protein = shakeProtein;
 
-      const shake = new Meal();
-      shake.tag = "intra-workout";
-      shake.carbs = shakeCarbs;
-      shake.protein = shakeProtein;
-      shake.fat = 0;
+        const shake = new Meal();
+        shake.tag = "intra-workout";
+        shake.carbs = shakeCarbs;
+        shake.protein = shakeProtein;
+        shake.fat = 0;
 
-      this.mealPlan.splice(workoutAfterMeal, 0, shake);
+        this.mealPlan.splice(workoutAfterMeal, 0, shake);
+      }
     }
 
     let nom = useShake ? numberOfMeals + 1 : numberOfMeals;
@@ -259,7 +287,15 @@ export class PlanBuilderService {
       this.mealPlan[i].setCalories();
     }
   }
+  
 
+  getGeneratedPlan(user: User, selectedDayType: string): Meal[] {
+    this.calculateBmr(user);
+    this.generateMacros(user, selectedDayType);
+    this.generateMealPlan(user, selectedDayType);
+
+    return this.mealPlan;
+  }
 
   toPounds(kg: number): number {
     return kg * 2.20462;

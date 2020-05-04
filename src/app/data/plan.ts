@@ -1,5 +1,6 @@
 export class Plan {
-    details: PlanDetails[];
+    // details: PlanDetails[];
+    details: Map<string, PlanDetails>;
 }
 
 export class PlanDetails {
