@@ -1,3 +1,5 @@
+import { Plan } from './plan';
+
 export class User {
     age: number;
     weight: number;
@@ -8,4 +10,6 @@ export class User {
     lifestyle: number;
     macroPreferences: number;
     numberOfMeals: number;
+
+    plan: Plan;
 }
