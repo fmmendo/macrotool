@@ -1,1 +1,25 @@
-<p>plan-summary works!</p>
+<div class='card'>
+    <div class='card-header'>
+        PLAN SUMMARY
+    </div>
+
+    <div class='card-body'>
+        <div class='row'>{{mealPlan[0].calories}} CALORIES</div>
+        <div class='row'>
+            <div class='col'>{{mealPlan[0].carbs}}g carbs ({{mealPlan[0].carbs}}%)</div>
+            <div class='col'>{{mealPlan[0].carbs}}g protein ({{mealPlan[0].carbs}}%)</div>
+            <div class='col'>{{mealPlan[0].carbs}}g fat ({{mealPlan[0].carbs}}%)</div>
+
+        </div>
+    </div>
+
+    <div class='card-body'>
+        <div class='row'>
+            <div class='col'>DAY TYPE:</div>
+            <div class='col'>
+                <input type='range' min="1" max="4" value=1 [(ngModel)]='dayTypeId' (input)="onTextChanged()" />
+            </div>
+        </div>
+        <div class='row'>rest - light - moderate - hard</div>
+    </div>
+</div>

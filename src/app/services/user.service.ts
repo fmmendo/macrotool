@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../data/user';
+import { Plan } from '../data/plan';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +20,22 @@ export class UserService {
 
     let user: User;
     user = JSON.parse(userJson);
-
+    user = this.setUpUser(user);
     return user;
   }
 
-  private setUpUser(user: User) {
+  private setUpUser(user: User): User {
     if (user == null) {
       user = new User();
+
+      user.numberOfMeals = 5;
+      user.lifestyle = 1;
+      user.macroPreferences = 3;
     }
-    
+
+    if (user.plan == null) {
+      user.plan = new Plan();
+    }
     return user;
   }
 }

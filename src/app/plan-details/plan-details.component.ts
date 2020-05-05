@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { PlanBuilderService } from '../services/plan-builder.service';
+import { User } from '../data/user';
+import { Meal } from '../data/meal';
+import { PlanDetails } from '../data/plan';
 
 @Component({
   selector: 'app-plan-details',
@@ -6,10 +11,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plan-details.component.scss']
 })
 export class PlanDetailsComponent implements OnInit {
+  user: User;
+  mealPlan: Meal[];
 
-  constructor() { }
+  readonly dayTypes: string[] = [
+    'rest', 'light', 'moderate', 'hard'//, 'veryhard'//, 'custom'
+  ];
+
+  constructor(private userService: UserService, private planBuilder: PlanBuilderService) { }
 
   ngOnInit(): void {
+    this.user = this.userService.getUser();
+    this.populateMealPlanIfEmpty();
+    this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "rest");
+
+  }
+
+  private populateMealPlanIfEmpty() {
+    if (this.user.plan.details == undefined || this.user.plan.details.size == undefined) {
+      this.user.plan.details = new Map<string, PlanDetails>();
+    }
+
+    for (let i = 0; i < this.dayTypes.length; i++) {
+      if (!this.user.plan.details.has(this.dayTypes[i])) {
+        let details = new PlanDetails();
+        // details.dayType = this.dayTypes[i];
+        // details.mealPlan = new Array<Meal>();
+        this.user.plan.details.set(this.dayTypes[i], details);
+      }
+    }
+
+    this.userService.saveUser(this.user);
   }
 
 }

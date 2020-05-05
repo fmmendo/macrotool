@@ -1,3 +1,5 @@
+import { Meal } from './meal';
+
 export class Plan {
     // details: PlanDetails[];
     details: Map<string, PlanDetails>;

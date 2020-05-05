@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../data/user';
 import { Meal } from '../data/meal';
+import { PlanDetails } from '../data/plan';
 
 @Injectable({
   providedIn: 'root'
@@ -191,8 +192,8 @@ export class PlanBuilderService {
     let details = user.plan.details.get(selectedDayType);
 
     let numberOfMeals = user.numberOfMeals; //todo: default?
-    let useShake = details.useWorkoutShake; //todo: default?
-    let workoutAfterMeal = details.workoutAfterMeal; //todo: default?
+    let useShake = details.useWorkoutShake ?? false; //todo: default?
+    let workoutAfterMeal = details.workoutAfterMeal ?? 1; //todo: default?
 
     this.mealPlan = new Array();
     for (let i = 0; i < numberOfMeals; i++) {
@@ -293,6 +294,11 @@ export class PlanBuilderService {
     this.calculateBmr(user);
     this.generateMacros(user, selectedDayType);
     this.generateMealPlan(user, selectedDayType);
+
+
+    let details = new PlanDetails();
+    // details. = this.mealPlan;
+    user.plan.details.set(selectedDayType, details)
 
     return this.mealPlan;
   }
