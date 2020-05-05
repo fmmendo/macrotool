@@ -28,7 +28,15 @@
     <div class='row'>
       <div class='col'>Gender:</div>
       <div class='col'>
-        <input type='number' (input)="onTextChanged()" />
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="gender" [(ngModel)]="user.gender"
+        (change)="onTextChanged()">
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" value="male" [checked]="true">male
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" value="female">female
+        </label>
+      </div>
       </div>
     </div>
 
@@ -46,11 +54,24 @@
   </div>
   <div class='card-body'>
     <div class='row'>
-      <input type='range' min="1" max="4" value=1 [(ngModel)]='user.lifestyle' (input)="onTextChanged()" />
     </div>
-
-    <div class='row'>Sedentary - light - active - very active</div>
+    <div class="btn-group btn-group-toggle" ngbRadioGroup name="lifestyleOption" [(ngModel)]="user.lifestyle"
+      (change)="onTextChanged()">
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="1" [checked]="true">Sedentary
+      </label>
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="2">Light
+      </label>
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="3">Active
+      </label>
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" [value]="4">Very Active
+      </label>
+    </div>
   </div>
+
 
   <div class='card-header'>
     STEP 3 : Plan Details
@@ -59,18 +80,49 @@
     <div class='row'>
       <div class='col'>Macro preference:</div>
       <div class='col'>
-        <input type='range' min="1" max="5" value=2 [(ngModel)]='user.macroPreferences' (input)="onTextChanged()" />
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="macroPreferences"
+          [(ngModel)]="user.macroPreferences" (change)="onTextChanged()">
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="1" [checked]="true">Highest Fat
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="2">High Fat
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="3">Balanced
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="4">High Carb
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="5">Highest Carb
+          </label>
+        </div>
+        <!-- <input type='range' min="1" max="5" value=2 [(ngModel)]='user.macroPreferences' (input)="onTextChanged()" /> -->
       </div>
     </div>
-    <div class='row'>highes fat - higher fat - balanced - higher carb - highest carb</div>
+    <!-- <div class='row'>highes fat - higher fat - balanced - higher carb - highest carb</div> -->
+
+
 
     <div class='row'>
       <div class='col'>Number of meals:</div>
       <div class='col'>
-        <input type='range' min="4" max="6" value=5 [(ngModel)]='user.numberOfMeals' (input)="onTextChanged()" />
+        <!-- <input type='range' min="4" max="6" value=5 [(ngModel)]='user.numberOfMeals' (input)="onTextChanged()" /> -->
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="numberOfMeals" [(ngModel)]="user.numberOfMeals"
+          (change)="onTextChanged()">
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="4" [checked]="true">4
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="5">5
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="6">6
+          </label>
+        </div>
       </div>
     </div>
-    <div class='row'>4 - 5 - 6</div>
 
   </div>
 
