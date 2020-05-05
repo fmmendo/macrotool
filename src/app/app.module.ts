@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PlanSummaryComponent } from './plan-summary/plan-summary.component';
 import { PlanDetailsComponent } from './plan-details/plan-details.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PlanDetailsComponent } from './plan-details/plan-details.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
