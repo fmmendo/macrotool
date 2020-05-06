@@ -28,16 +28,16 @@ export class PlanDetailsComponent implements OnInit {
   }
 
   private populateMealPlanIfEmpty() {
-    if (this.user.plan.details == undefined || this.user.plan.details.size == undefined) {
-      this.user.plan.details = new Map<string, PlanDetails>();
-    }
+    // if (this.user.plan.details == undefined || this.user.plan.details.size == undefined) {
+    //   this.user.plan.details =  Record<string, PlanDetails>;
+    // }
 
     for (let i = 0; i < this.dayTypes.length; i++) {
-      if (!this.user.plan.details.has(this.dayTypes[i])) {
+      if (!this.user.plan.details[this.dayTypes[i]] != null) {
         let details = new PlanDetails();
         // details.dayType = this.dayTypes[i];
         // details.mealPlan = new Array<Meal>();
-        this.user.plan.details.set(this.dayTypes[i], details);
+        this.user.plan.details[this.dayTypes[i]]= details;
       }
     }
 

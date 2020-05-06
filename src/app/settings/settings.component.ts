@@ -10,7 +10,6 @@ import { PlanBuilderService } from '../services/plan-builder.service';
 })
 export class SettingsComponent implements OnInit {
   user: User;
-  option: number;
 
 
   constructor(private userService: UserService, private planBuilder: PlanBuilderService) { }
@@ -20,7 +19,6 @@ export class SettingsComponent implements OnInit {
   }
 
   onTextChanged() {
-    console.log(this.option)
     this.saveDetails()
   }
 

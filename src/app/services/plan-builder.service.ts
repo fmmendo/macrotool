@@ -189,7 +189,7 @@ export class PlanBuilderService {
   generateMealPlan(user: User, selectedDayType: string) {
 
     // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
-    let details = user.plan.details.get(selectedDayType);
+    let details = user.plan.details[selectedDayType] ?? null;
 
     let numberOfMeals = user.numberOfMeals; //todo: default?
     let useShake = details.useWorkoutShake ?? false; //todo: default?
@@ -298,7 +298,7 @@ export class PlanBuilderService {
 
     let details = new PlanDetails();
     // details. = this.mealPlan;
-    user.plan.details.set(selectedDayType, details)
+    user.plan.details[selectedDayType] = details;
 
     return this.mealPlan;
   }
