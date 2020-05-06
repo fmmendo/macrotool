@@ -4,12 +4,13 @@
     </div>
 
     <div class='card-body'>
-        <div class='row'>{{mealPlan[0].calories}} CALORIES</div>
-        <div class='row'>
-            <div class='col'>{{mealPlan[0].carbs}}g carbs ({{mealPlan[0].carbs}}%)</div>
-            <div class='col'>{{mealPlan[0].carbs}}g protein ({{mealPlan[0].carbs}}%)</div>
-            <div class='col'>{{mealPlan[0].carbs}}g fat ({{mealPlan[0].carbs}}%)</div>
-
+        <div class='row' *ngFor='let meal of mealPlan'>
+            <div class='col'>Meal: {{meal.name}}</div>
+            <div class='col' *ngIf='meal.tag'>({{meal.tag}})</div>
+            <div class='col'>{{meal.calories}} CALORIES</div>
+            <div class='col'>{{meal.carbs}}g carbs ({{meal.carbs}}%)</div>
+            <div class='col'>{{meal.protein}}g protein ({{meal.protein}}%)</div>
+            <div class='col'>{{meal.fat}}g fat ({{meal.fat}}%)</div>
         </div>
     </div>
 </div>
