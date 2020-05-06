@@ -4,12 +4,11 @@
     </div>
 
     <div class='card-body'>
-        <div class='row'>{{mealPlan[0].calories}} CALORIES</div>
+        <div class='row'>{{totalCalories}} CALORIES</div>
         <div class='row'>
-            <div class='col'>{{mealPlan[0].carbs}}g carbs ({{mealPlan[0].carbs}}%)</div>
-            <div class='col'>{{mealPlan[0].carbs}}g protein ({{mealPlan[0].carbs}}%)</div>
-            <div class='col'>{{mealPlan[0].carbs}}g fat ({{mealPlan[0].carbs}}%)</div>
-
+            <div class='col'>{{totalCarbs}}g carbs ({{percentCarbs}}%)</div>
+            <div class='col'>{{totalProtein}}g protein ({{percentProtein}}%)</div>
+            <div class='col'>{{totalFat}}g fat ({{percentFat}}%)</div>
         </div>
     </div>
 

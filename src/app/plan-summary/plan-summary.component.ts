@@ -15,6 +15,15 @@ export class PlanSummaryComponent implements OnInit {
   mealPlan: Meal[];
   dayTypeId: number;
 
+  totalCalories: number;
+  totalCarbs: number;
+  totalFat: number;
+  totalProtein: number;
+
+  percentCarbs: number;
+  percentProtein: number;
+  percentFat: number;
+
   readonly dayTypes: string[] = [
     'rest', 'light', 'moderate', 'hard'//, 'veryhard'//, 'custom'
   ];
@@ -27,6 +36,8 @@ export class PlanSummaryComponent implements OnInit {
     // 
     // this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "rest");
     this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "rest");
+
+    this.updateTotals();
   }
 
   private populateMealPlanIfEmpty() {
@@ -48,7 +59,6 @@ export class PlanSummaryComponent implements OnInit {
 
   }
 
-
   onTextChanged() {
     switch (this.dayTypeId) {
       case 1:
@@ -64,5 +74,18 @@ export class PlanSummaryComponent implements OnInit {
         this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "hard");
         break;
     }
+
+    this.updateTotals();
+  }
+
+  updateTotals(){
+    this.totalCalories = this.mealPlan.reduce(function(total, meal) { return total + meal.calories}, 0);
+    this.totalCarbs = this.mealPlan.reduce(function(total, meal) { return total + meal.carbs}, 0);
+    this.totalFat = this.mealPlan.reduce(function(total, meal) { return total + meal.fat}, 0);
+    this.totalProtein = this.mealPlan.reduce(function(total, meal) { return total + meal.protein}, 0);
+
+    this.percentCarbs = 100 * this.totalCarbs * 4 / this.totalCalories;
+    this.percentFat = 100 * this.totalFat * 9 / this.totalCalories;
+    this.percentProtein = 100 * this.totalProtein * 4 / this.totalCalories;
   }
 }
