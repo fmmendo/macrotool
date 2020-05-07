@@ -9,23 +9,6 @@
       <div class='col'>
         <input type='number' [(ngModel)]='user.age' (input)="onTextChanged()" />
       </div>
-    </div>
-
-    <div class='row'>
-      <div class='col'>Weight:</div>
-      <div class='col'>
-        <input type='number' [(ngModel)]='user.weight' (input)="onTextChanged()" />
-      </div>
-    </div>
-
-    <div class='row'>
-      <div class='col'>Height:</div>
-      <div class='col'>
-        <input type='number' [(ngModel)]='user.height' (input)="onTextChanged()" />
-      </div>
-    </div>
-
-    <div class='row'>
       <div class='col'>Gender:</div>
       <div class='col'>
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="gender" [(ngModel)]="user.gender"
@@ -37,14 +20,29 @@
           <input ngbButton type="radio" value="female">female
         </label>
       </div>
+    </div>
+  </div>
+
+
+    <div class='row'>
+      <div class='col'>Height:</div>
+      <div class='col'>
+        <input type='number' [(ngModel)]='user.height' (input)="onTextChanged()" />
+      </div>
+      <div class='col'>Weight:</div>
+      <div class='col'>
+        <input type='number' [(ngModel)]='user.weight' (input)="onTextChanged()" />
       </div>
     </div>
+
 
     <div class='row'>
       <div class='col'>Bodyfat (optional):</div>
       <div class='col'>
         <input type='number' [(ngModel)]='user.bodyfat' (input)="onTextChanged()" />
       </div>
+      <div class='col'></div>
+      <div class='col'></div>
     </div>
   </div>
 
@@ -58,16 +56,32 @@
     <div class="btn-group btn-group-toggle" ngbRadioGroup name="lifestyleOption" [(ngModel)]="user.lifestyle"
       (change)="onTextChanged()">
       <label ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="1" [checked]="true">Sedentary
+        <input ngbButton type="radio" [value]="1" [checked]="true">
+        <div>
+        <h2>Sedentary</h2>
+        <p>something something something something</p>
+        </div>
       </label>
       <label ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="2">Light
+        <input ngbButton type="radio" [value]="2">
+        <div>
+        <h2>Light</h2>
+        <p>something something something something</p>
+        </div>
       </label>
       <label ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="3">Active
+        <input ngbButton type="radio" [value]="3">
+        <div>
+        <h2>Active</h2>
+        <p>something something something something</p>
+        </div>
       </label>
       <label ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="4">Very Active
+        <input ngbButton type="radio" [value]="4">
+        <div>
+        <h2>Very Active</h2>
+        <p>something something something something</p>
+        </div>
       </label>
     </div>
   </div>

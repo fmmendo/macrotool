@@ -27,7 +27,7 @@ export class PlanBuilderService {
 
   // Formulas for estimating BMR with or withouth body-fat can be found at:
   // https://en.wikipedia.org/wiki/Basal_metabolic_rate#BMR_estimation_formulas
-  calculateBmr(user: User) {
+  private calculateBmr(user: User) {
     if (user.bodyfat > 0) {
       this.bmr = 371 + (21.6 * (user.weight * (1 - user.bodyfat / 100)));
     } else {
@@ -42,7 +42,7 @@ export class PlanBuilderService {
     this.calculateBmrLifestyle(user);
   }
 
-  calculateBmrLifestyle(user: User) {
+  private calculateBmrLifestyle(user: User) {
     switch (user.lifestyle) {
       case 1: // sedentary
         this.bmr_lifestyle = 1.2 * this.bmr;
@@ -59,7 +59,7 @@ export class PlanBuilderService {
     }
   }
 
-  generateMacros(user: User, selectedDayType: string) {
+  private generateMacros(user: User, selectedDayType: string) {
 
     // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
     // this.customDetails = user.plan.details.filter(item => item.dayType == selectedDayType)[0];
@@ -186,7 +186,7 @@ export class PlanBuilderService {
     this.totalCalories = this.proteinGrams * 4 + this.carbsGrams * 4 + this.fatGrams * 9;
   }
 
-  generateMealPlan(user: User, selectedDayType: string) {
+  private generateMealPlan(user: User, selectedDayType: string) {
 
     // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
     let details = user.plan.details[selectedDayType] ?? null;
@@ -296,9 +296,9 @@ export class PlanBuilderService {
     this.generateMealPlan(user, selectedDayType);
 
 
-    let details = new PlanDetails();
-    // details. = this.mealPlan;
-    user.plan.details[selectedDayType] = details;
+    // let details = new PlanDetails();
+    // // details. = this.mealPlan;
+    // user.plan.details[selectedDayType] = details;
 
     return this.mealPlan;
   }
