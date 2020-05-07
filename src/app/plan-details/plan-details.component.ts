@@ -1,30 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { PlanBuilderService } from '../services/plan-builder.service';
 import { User } from '../data/user';
 import { Meal } from '../data/meal';
 import { PlanDetails } from '../data/plan';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-plan-details',
   templateUrl: './plan-details.component.html',
   styleUrls: ['./plan-details.component.scss']
 })
-export class PlanDetailsComponent implements OnInit {
+export class PlanDetailsComponent implements OnInit, OnDestroy {
   user: User;
+  userSubscription: Subscription;
+  mealPlanSubscription: Subscription;
   mealPlan: Meal[];
 
   readonly dayTypes: string[] = [
     'rest', 'light', 'moderate', 'hard'//, 'veryhard'//, 'custom'
   ];
 
-  constructor(private userService: UserService, private planBuilder: PlanBuilderService) { }
+  constructor(private userService: UserService, private planBuilder: PlanBuilderService) {
+    this.userSubscription = this.userService.user$.subscribe(u => this.user = u);
+    this.mealPlanSubscription = this.planBuilder.mealPlan$.subscribe(mp => this.mealPlan = mp);
+  }
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
+    this.userService.getUser();
     this.populateMealPlanIfEmpty();
-    this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "rest");
+    // this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "rest");
+  }
 
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+    this.mealPlanSubscription.unsubscribe();
   }
 
   private populateMealPlanIfEmpty() {
@@ -37,7 +47,7 @@ export class PlanDetailsComponent implements OnInit {
         let details = new PlanDetails();
         // details.dayType = this.dayTypes[i];
         // details.mealPlan = new Array<Meal>();
-        this.user.plan.details[this.dayTypes[i]]= details;
+        this.user.plan.details[this.dayTypes[i]] = details;
       }
     }
 

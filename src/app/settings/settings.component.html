@@ -1,4 +1,4 @@
-<div class='card'>
+<div class='card' style='max-width: 750px;'>
   <div class='card-header'>
     STEP 1 : Basic Information
   </div>
@@ -12,16 +12,16 @@
       <div class='col'>Gender:</div>
       <div class='col'>
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="gender" [(ngModel)]="user.gender"
-        (change)="onTextChanged()">
-        <label ngbButtonLabel class="btn-primary">
-          <input ngbButton type="radio" value="male" [checked]="true">male
-        </label>
-        <label ngbButtonLabel class="btn-primary">
-          <input ngbButton type="radio" value="female">female
-        </label>
+          (change)="onTextChanged()">
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" value="male" [checked]="true">male
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" value="female">female
+          </label>
+        </div>
       </div>
     </div>
-  </div>
 
 
     <div class='row'>
@@ -45,48 +45,55 @@
       <div class='col'></div>
     </div>
   </div>
+</div>
 
+<br/>
+
+<div class='card'>
 
   <div class='card-header'>
     STEP 2 : Lifestyle
   </div>
   <div class='card-body'>
     <div class='row'>
-    </div>
-    <div class="btn-group btn-group-toggle" ngbRadioGroup name="lifestyleOption" [(ngModel)]="user.lifestyle"
-      (change)="onTextChanged()">
-      <label ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="1" [checked]="true">
-        <div>
-        <h2>Sedentary</h2>
-        <p>something something something something</p>
-        </div>
-      </label>
-      <label ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="2">
-        <div>
-        <h2>Light</h2>
-        <p>something something something something</p>
-        </div>
-      </label>
-      <label ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="3">
-        <div>
-        <h2>Active</h2>
-        <p>something something something something</p>
-        </div>
-      </label>
-      <label ngbButtonLabel class="btn-primary">
-        <input ngbButton type="radio" [value]="4">
-        <div>
-        <h2>Very Active</h2>
-        <p>something something something something</p>
-        </div>
-      </label>
+      <div class="btn-group btn-group-toggle" ngbRadioGroup name="lifestyleOption" [(ngModel)]="user.lifestyle"
+        (change)="onTextChanged()">
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" [value]="1" [checked]="true">
+          <div>
+            <h2>Sedentary</h2>
+            <p>something something something something</p>
+          </div>
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" [value]="2">
+          <div>
+            <h2>Light</h2>
+            <p>something something something something</p>
+          </div>
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" [value]="3">
+          <div>
+            <h2>Active</h2>
+            <p>something something something something</p>
+          </div>
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+          <input ngbButton type="radio" [value]="4">
+          <div>
+            <h2>Very Active</h2>
+            <p>something something something something</p>
+          </div>
+        </label>
+      </div>
     </div>
   </div>
+</div>
 
+<br/>
 
+<div class='card'>
   <div class='card-header'>
     STEP 3 : Plan Details
   </div>
@@ -112,17 +119,12 @@
             <input ngbButton type="radio" [value]="5">Highest Carb
           </label>
         </div>
-        <!-- <input type='range' min="1" max="5" value=2 [(ngModel)]='user.macroPreferences' (input)="onTextChanged()" /> -->
       </div>
     </div>
-    <!-- <div class='row'>highes fat - higher fat - balanced - higher carb - highest carb</div> -->
-
-
 
     <div class='row'>
       <div class='col'>Number of meals:</div>
       <div class='col'>
-        <!-- <input type='range' min="4" max="6" value=5 [(ngModel)]='user.numberOfMeals' (input)="onTextChanged()" /> -->
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="numberOfMeals" [(ngModel)]="user.numberOfMeals"
           (change)="onTextChanged()">
           <label ngbButtonLabel class="btn-primary">

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../data/user';
 import { Meal } from '../data/meal';
 import { PlanDetails } from '../data/plan';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,19 @@ export class PlanBuilderService {
   readonly carbsMod = 1.5;
   readonly carbsHard = 2;
 
-  bmr = 0;
-  bmr_lifestyle = 0;
+  private bmr = 0;
+  private bmr_lifestyle = 0;
 
-  proteinGrams: number;
-  carbsGrams: number;
-  fatGrams: number;
-  minCarbsModifier: number;
-  totalCalories: number;
-  mealPlan: Meal[];
+  private proteinGrams: number;
+  private carbsGrams: number;
+  private fatGrams: number;
+  private minCarbsModifier: number;
+  private totalCalories: number;
+
+  private mealPlanSource = new Subject<Meal[]>();
+  mealPlan$ = this.mealPlanSource.asObservable();
+
+  private mealPlan: Meal[];
 
   constructor() { }
 
@@ -288,14 +293,14 @@ export class PlanBuilderService {
       this.mealPlan[i].setCalories();
     }
   }
-  
 
-  getGeneratedPlan(user: User, selectedDayType: string): Meal[] {
+
+  getGeneratedPlan(user: User, selectedDayType: string) {
     this.calculateBmr(user);
     this.generateMacros(user, selectedDayType);
     this.generateMealPlan(user, selectedDayType);
 
-
+    this.mealPlanSource.next(this.mealPlan);
     // let details = new PlanDetails();
     // // details. = this.mealPlan;
     // user.plan.details[selectedDayType] = details;

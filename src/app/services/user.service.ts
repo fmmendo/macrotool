@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../data/user';
 import { Plan } from '../data/plan';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,9 @@ import { Plan } from '../data/plan';
 export class UserService {
 
   private key_user = "LS-PLAN-USER";
+
+  private userSource = new Subject<User>();
+  user$ = this.userSource.asObservable();
 
   constructor() { }
 
@@ -21,7 +25,8 @@ export class UserService {
     let user: User;
     user = JSON.parse(userJson);
     user = this.setUpUser(user);
-    return user;
+
+    this.userSource.next(user);
   }
 
   private setUpUser(user: User): User {

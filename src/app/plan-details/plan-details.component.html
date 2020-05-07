@@ -8,9 +8,9 @@
             <div class='col'>Meal: {{meal.name}}</div>
             <div class='col' *ngIf='meal.tag'>({{meal.tag}})</div>
             <div class='col'>{{meal.calories}} CALORIES</div>
-            <div class='col'>{{meal.carbs}}g carbs ({{meal.carbs}}%)</div>
-            <div class='col'>{{meal.protein}}g protein ({{meal.protein}}%)</div>
-            <div class='col'>{{meal.fat}}g fat ({{meal.fat}}%)</div>
+            <div class='col'>{{meal.carbs}}g carbs ({{meal.carbs*400/meal.calories}}%)</div>
+            <div class='col'>{{meal.protein}}g protein ({{meal.protein*400/meal.calories}}%)</div>
+            <div class='col'>{{meal.fat}}g fat ({{meal.fat*900/meal.calories}}%)</div>
         </div>
     </div>
 </div>
