@@ -13,7 +13,7 @@
       </div>
       <div class='col'>Gender:</div>
       <div class='col'>
-        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="gender" [(ngModel)]="user.gender"
+        <div class="btn-group btn-group-toggle btn-group-sm btn-block" ngbRadioGroup name="gender" [(ngModel)]="user.gender"
           (change)="onTextChanged()">
           <label ngbButtonLabel class="btn-dark">
             <input ngbButton type="radio" value="male" [checked]="true">male
@@ -28,15 +28,17 @@
 
     <div class='row'>
       <div class='col'>Height:</div>
-      <div class='col input-group input-group-sm'>
-        <input type='number' class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.height' (input)="onTextChanged()" />
+      <div class='col input-group input-group-sm btn-block'>
+        <input type='number' class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.height'
+          (input)="onTextChanged()" />
         <div class="input-group-append">
           <span class="input-group-text" id="inputGroup-sizing-sm">cm</span>
         </div>
       </div>
       <div class='col'>Weight:</div>
       <div class="col input-group input-group-sm">
-        <input type="number" class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.weight' (input)="onTextChanged()" />
+        <input type="number" class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.weight'
+          (input)="onTextChanged()" />
         <div class="input-group-append">
           <span class="input-group-text" id="inputGroup-sizing-sm">kg</span>
         </div>
@@ -47,9 +49,10 @@
     <div class='row'>
       <div class='col'>Bodyfat (optional):</div>
       <div class='col input-group input-group-sm'>
-        <input type='number' class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.bodyfat' (input)="onTextChanged()" />
+        <input type='number' class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.bodyfat'
+          (input)="onTextChanged()" />
         <div class="input-group-append">
-          <span class="input-group-text" id="inputGroup-sizing-sm"></span>
+          <span class="input-group-text" id="inputGroup-sizing-sm">%</span>
         </div>
       </div>
       <div class='col'></div>
@@ -60,41 +63,45 @@
   </div>
 </div>
 
-<br/>
+<br />
 
 <div class='card shadow' style='max-width: 750px; margin: auto;'>
   <div class='card-header h4 header'>
     STEP 2 : Lifestyle
   </div>
-  <div class='card-body'>
+  <div class='card-body' style="padding: 0em 1em 0em 1em;">
     <div class='row'>
-      <div class="btn-group btn-group-toggle" ngbRadioGroup name="lifestyleOption" [(ngModel)]="user.lifestyle"
+      <div class="btn-group btn-group-toggle btn-block" ngbRadioGroup name="lifestyleOption" [(ngModel)]="user.lifestyle"
         (change)="onTextChanged()">
-        <label ngbButtonLabel class="btn-outline-secondary">
+        <label ngbButtonLabel class="btn-outline-secondary" style="border: 0;">
           <input ngbButton type="radio" [value]="1" [checked]="true">
           <div>
-            <h2>Sedentary</h2>
+            <div class="h4">Sedentary</div>
+            <hr />
             <p>Spend most of the day sitting (working on computer, no exercise)</p>
           </div>
         </label>
-        <label ngbButtonLabel class="btn-outline-secondary">
+        <label ngbButtonLabel class="btn-outline-secondary" style="border: 0;">
           <input ngbButton type="radio" [value]="2">
           <div>
-            <h2>Light</h2>
+            <div class="h4">Light</div>
+            <hr />
             <p>Spend a good part of the day on your feet (teacher, real estate)</p>
           </div>
         </label>
-        <label ngbButtonLabel class="btn-outline-secondary">
+        <label ngbButtonLabel class="btn-outline-secondary" style="border: 0;">
           <input ngbButton type="radio" [value]="3">
           <div>
-            <h2>Active</h2>
+            <div class="h4">Active</div>
+            <hr />
             <p>Spend a good part of the day doing physical activities (waitress, delivery driver)</p>
           </div>
         </label>
-        <label ngbButtonLabel class="btn-outline-secondary">
+        <label ngbButtonLabel class="btn-outline-secondary" style="border: 0;">
           <input ngbButton type="radio" [value]="4">
           <div>
-            <h2>Very Active</h2>
+            <div class="h4">Very Active</div>
+            <hr />
             <p>Spend a good part of the day doing heavy physical activities (construction worker, mover)</p>
           </div>
         </label>
@@ -103,7 +110,7 @@
   </div>
 </div>
 
-<br/>
+<br />
 
 <div class='card shadow' style='max-width: 750px; margin: auto;'>
   <div class='card-header h4 header'>
@@ -113,7 +120,7 @@
     <div class='row'>
       <div class='col-3'>Macro preference:</div>
       <div class='col'>
-        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="macroPreferences"
+        <div class="btn-group btn-group-toggle btn-group-sm btn-block" ngbRadioGroup name="macroPreferences"
           [(ngModel)]="user.macroPreferences" (change)="onTextChanged()">
           <label ngbButtonLabel class="btn-dark">
             <input ngbButton type="radio" [value]="1" [checked]="true">Highest Fat
@@ -137,8 +144,8 @@
     <div class='row'>
       <div class='col-3'>Number of meals:</div>
       <div class='col'>
-        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="numberOfMeals" [(ngModel)]="user.numberOfMeals"
-          (change)="onTextChanged()">
+        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="numberOfMeals"
+          [(ngModel)]="user.numberOfMeals" (change)="onTextChanged()">
           <label ngbButtonLabel class="btn-dark">
             <input ngbButton type="radio" [value]="4" [checked]="true">4
           </label>
@@ -155,3 +162,4 @@
   </div>
 
 </div>
+<br />
