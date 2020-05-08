@@ -1,22 +1,24 @@
-<div class='card' style='max-width: 750px;'>
-  <div class='card-header'>
+<div class='card shadow' style='max-width: 750px; margin: auto;'>
+  <div class='card-header h4 header'>
     STEP 1 : Basic Information
   </div>
 
   <div class='card-body'>
     <div class='row'>
-      <div class='col'>Age:</div>
       <div class='col'>
-        <input type='number' [(ngModel)]='user.age' (input)="onTextChanged()" />
+        <label>Age</label>
+      </div>
+      <div class='col'>
+        <input type='number' class="form-control form-control-sm" [(ngModel)]='user.age' (input)="onTextChanged()" />
       </div>
       <div class='col'>Gender:</div>
       <div class='col'>
-        <div class="btn-group btn-group-toggle" ngbRadioGroup name="gender" [(ngModel)]="user.gender"
+        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="gender" [(ngModel)]="user.gender"
           (change)="onTextChanged()">
-          <label ngbButtonLabel class="btn-primary">
+          <label ngbButtonLabel class="btn-dark">
             <input ngbButton type="radio" value="male" [checked]="true">male
           </label>
-          <label ngbButtonLabel class="btn-primary">
+          <label ngbButtonLabel class="btn-dark">
             <input ngbButton type="radio" value="female">female
           </label>
         </div>
@@ -26,24 +28,35 @@
 
     <div class='row'>
       <div class='col'>Height:</div>
-      <div class='col'>
-        <input type='number' [(ngModel)]='user.height' (input)="onTextChanged()" />
+      <div class='col input-group input-group-sm'>
+        <input type='number' class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.height' (input)="onTextChanged()" />
+        <div class="input-group-append">
+          <span class="input-group-text" id="inputGroup-sizing-sm">cm</span>
+        </div>
       </div>
       <div class='col'>Weight:</div>
-      <div class='col'>
-        <input type='number' [(ngModel)]='user.weight' (input)="onTextChanged()" />
+      <div class="col input-group input-group-sm">
+        <input type="number" class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.weight' (input)="onTextChanged()" />
+        <div class="input-group-append">
+          <span class="input-group-text" id="inputGroup-sizing-sm">kg</span>
+        </div>
       </div>
     </div>
 
 
     <div class='row'>
       <div class='col'>Bodyfat (optional):</div>
-      <div class='col'>
-        <input type='number' [(ngModel)]='user.bodyfat' (input)="onTextChanged()" />
+      <div class='col input-group input-group-sm'>
+        <input type='number' class="form-control" aria-describedby="inputGroup-sizing-sm" [(ngModel)]='user.bodyfat' (input)="onTextChanged()" />
+        <div class="input-group-append">
+          <span class="input-group-text" id="inputGroup-sizing-sm"></span>
+        </div>
       </div>
       <div class='col'></div>
       <div class='col'></div>
     </div>
+
+
   </div>
 </div>
 
