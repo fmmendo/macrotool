@@ -51,6 +51,11 @@ $small               : "only screen and (min-width: 30em)";
 $medium              : "only screen and (min-width: 48em)";
 $large               : "only screen and (min-width: 62.5em)";
 
+.custom-card {
+    max-width: 750px;
+    margin: auto;
+}
+
 .header {
     background-color: $header-color;
     color: $white;

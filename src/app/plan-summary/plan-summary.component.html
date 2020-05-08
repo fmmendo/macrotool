@@ -1,33 +1,33 @@
-<div class='card'>
-    <div class='card-header'>
-        PLAN SUMMARY
+<div class='card shadow custom-card'>
+  <div class='card-header h4 header'>
+        Plan Summary
     </div>
 
     <div class='card-body'>
-        <div class='row'>{{totalCalories}} CALORIES</div>
+        <div class='row' style="margin: auto; text-align: center; display: block;">{{totalCalories | number:'1.0-0'}} CALORIES</div>
         <div class='row'>
-            <div class='col'>{{totalCarbs}}g carbs ({{percentCarbs}}%)</div>
-            <div class='col'>{{totalProtein}}g protein ({{percentProtein}}%)</div>
-            <div class='col'>{{totalFat}}g fat ({{percentFat}}%)</div>
+            <div class='col'>{{totalCarbs | number:'1.0-0'}}g carbs ({{percentCarbs | number:'1.0-0'}}%)</div>
+            <div class='col'>{{totalProtein | number:'1.0-0'}}g protein ({{percentProtein | number:'1.0-0'}}%)</div>
+            <div class='col'>{{totalFat | number:'1.0-0'}}g fat ({{percentFat | number:'1.0-0'}}%)</div>
         </div>
     </div>
 
     <div class='card-body'>
         <div class='row'>
-            <div class='col'>DAY TYPE:</div>
+            <div class='col-3'>Day Type:</div>
             <div class='col'>
-                <div class="btn-group btn-group-toggle" ngbRadioGroup name="daytype" [(ngModel)]="dayTypeId"
+                <div class="btn-group btn-group-toggle btn-group-sm btn-block" ngbRadioGroup name="daytype" [(ngModel)]="dayTypeId"
                 (change)="onTextChanged()">
-                <label ngbButtonLabel class="btn-primary">
+                <label ngbButtonLabel class="btn-dark">
                   <input ngbButton type="radio" [value]="1" [checked]="true">Rest
                 </label>
-                <label ngbButtonLabel class="btn-primary">
+                <label ngbButtonLabel class="btn-dark">
                   <input ngbButton type="radio" [value]="2">Light
                 </label>
-                <label ngbButtonLabel class="btn-primary">
+                <label ngbButtonLabel class="btn-dark">
                   <input ngbButton type="radio" [value]="3">Moderate
                 </label>
-                <label ngbButtonLabel class="btn-primary">
+                <label ngbButtonLabel class="btn-dark">
                   <input ngbButton type="radio" [value]="4">Hard
                 </label>
               </div>
@@ -36,3 +36,5 @@
 
     </div>
 </div>
+
+<br />
