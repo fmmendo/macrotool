@@ -3,8 +3,8 @@
 An Angular app that creates a meal plan based on details speficic to your workout regime. It’s algorithm will define a distinct macronutrient intake based on your percieved level of exertion for the days you workout.
 
 ## Phase 1
-- [ ] LocalStorage user profile
-- [ ] Settings
+- [x] LocalStorage user profile
+- [x] Settings
 - [ ] Plan Builder
 - [ ] FAQ
 - [ ] Styling
