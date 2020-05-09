@@ -19,16 +19,16 @@
                 <div class="btn-group btn-group-toggle btn-group-sm btn-block" ngbRadioGroup name="daytype" [(ngModel)]="dayTypeId"
                 (change)="onTextChanged()">
                 <label ngbButtonLabel class="btn-dark">
-                  <input ngbButton type="radio" [value]="1" [checked]="true">Rest
+                  <input ngbButton type="radio" [value]="0" [checked]="true">Rest
                 </label>
                 <label ngbButtonLabel class="btn-dark">
-                  <input ngbButton type="radio" [value]="2">Light
+                  <input ngbButton type="radio" [value]="1">Light
                 </label>
                 <label ngbButtonLabel class="btn-dark">
-                  <input ngbButton type="radio" [value]="3">Moderate
+                  <input ngbButton type="radio" [value]="2">Moderate
                 </label>
                 <label ngbButtonLabel class="btn-dark">
-                  <input ngbButton type="radio" [value]="4">Hard
+                  <input ngbButton type="radio" [value]="3">Hard
                 </label>
               </div>
             </div>

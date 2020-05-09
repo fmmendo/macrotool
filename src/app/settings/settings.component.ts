@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   saveDetails() {
     this.userService.saveUser(this.user);
-    this.planBuilder.getGeneratedPlan(this.user, "rest");
+    this.planBuilder.getGeneratedPlan(this.user);
   }
 
 }

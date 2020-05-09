@@ -13,3 +13,10 @@ export class User {
 
     plan: Plan;
 }
+
+export enum DayType {
+    Rest,
+    Light, 
+    Moderate,
+    Hard,
+}

@@ -28,6 +28,8 @@ export class PlanDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userService.getUser();
+    this.planBuilder.getGeneratedPlan(this.user);
+
     this.populateMealPlanIfEmpty();
     // this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "rest");
   }

@@ -42,12 +42,12 @@ export class PlanSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userService.getUser();
-
-    this.populateMealPlanIfEmpty();
     // 
     // this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "rest");
-    this.planBuilder.getGeneratedPlan(this.user, "rest");
+    this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[0]);
 
+
+    this.populateMealPlanIfEmpty();
     this.updateTotals();
   }
 
@@ -76,20 +76,24 @@ export class PlanSummaryComponent implements OnInit, OnDestroy {
   }
 
   onTextChanged() {
-    switch (this.dayTypeId) {
-      case 1:
-        this.planBuilder.getGeneratedPlan(this.user, "rest");
-        break;
-      case 2:
-        this.planBuilder.getGeneratedPlan(this.user, "light");
-        break;
-      case 3:
-        this.planBuilder.getGeneratedPlan(this.user, "moderate");
-        break;
-      case 4:
-        this.planBuilder.getGeneratedPlan(this.user, "hard");
-        break;
-    }
+    console.log(this.dayTypeId);
+    console.log(this.dayTypes[this.dayTypeId]);
+    this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
+
+    // switch (this.dayTypeId) {
+    //   case 1:
+    //     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
+    //     break;
+    //   case 2:
+    //     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
+    //     break;
+    //   case 3:
+    //     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
+    //     break;
+    //   case 4:
+    //     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
+    //     break;
+    // }
 
     this.updateTotals();
   }

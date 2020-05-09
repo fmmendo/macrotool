@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 })
 export class UserService {
 
-  private key_user = "LS-PLAN-USER";
+  private key_user = "user";
 
   private userSource = new Subject<User>();
   user$ = this.userSource.asObservable();

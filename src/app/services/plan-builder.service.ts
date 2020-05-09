@@ -27,6 +27,7 @@ export class PlanBuilderService {
   mealPlan$ = this.mealPlanSource.asObservable();
 
   private mealPlan: Meal[];
+  dayType: string;
 
   constructor() { }
 
@@ -193,12 +194,14 @@ export class PlanBuilderService {
 
   private generateMealPlan(user: User, selectedDayType: string) {
 
+    let useShake = false;
+    let workoutAfterMeal = 1;
     // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
-    let details = user.plan.details[selectedDayType] ?? null;
+    // let details = user.plan.details[selectedDayType] ?? null;
 
     let numberOfMeals = user.numberOfMeals; //todo: default?
-    let useShake = details.useWorkoutShake ?? false; //todo: default?
-    let workoutAfterMeal = details.workoutAfterMeal ?? 1; //todo: default?
+    // useShake = details?.useWorkoutShake ?? false; //todo: default?
+    // workoutAfterMeal = details?.workoutAfterMeal ?? 1; //todo: default?
 
     this.mealPlan = new Array();
     for (let i = 0; i < numberOfMeals; i++) {
@@ -295,10 +298,17 @@ export class PlanBuilderService {
   }
 
 
-  getGeneratedPlan(user: User, selectedDayType: string) {
+  getGeneratedPlan(user: User, selectedDayType: string = null) {
+    if (selectedDayType) {
+      this.dayType = selectedDayType;
+    } else {
+      if (!this.dayType)
+        this.dayType = "rest";
+    }
+    console.log("generating " + this.dayType);
     this.calculateBmr(user);
-    this.generateMacros(user, selectedDayType);
-    this.generateMealPlan(user, selectedDayType);
+    this.generateMacros(user, this.dayType);
+    this.generateMealPlan(user, this.dayType);
 
     this.mealPlanSource.next(this.mealPlan);
     // let details = new PlanDetails();
