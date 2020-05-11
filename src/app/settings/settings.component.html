@@ -1,6 +1,6 @@
 <div class='card shadow custom-card'>
   <div class='card-header h4 header'>
-    STEP 1 : Basic Information
+    Basic Information
   </div>
 
   <div class='card-body'>
@@ -67,7 +67,7 @@
 
 <div class='card shadow custom-card'>
   <div class='card-header h4 header'>
-    STEP 2 : Lifestyle
+    Lifestyle
   </div>
   <div class='card-body' style="padding: 0em 1em 0em 1em;">
     <div class='row'>
@@ -112,9 +112,9 @@
 
 <br />
 
-<div class='card shadow custom-card'>
+<!-- <div class='card shadow custom-card'>
   <div class='card-header h4 header'>
-    STEP 3 : Plan Details
+    Plan Configuration
   </div>
   <div class='card-body'>
     <div class='row'>
@@ -142,7 +142,7 @@
     </div>
 
     <div class='row'>
-      <div class='col-3'>Number of meals:</div>
+      <div class='col-4'>Number of meals:</div>
       <div class='col'>
         <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="numberOfMeals"
           [(ngModel)]="user.numberOfMeals" (change)="onTextChanged()">
@@ -157,9 +157,22 @@
           </label>
         </div>
       </div>
+      
+      <div class='col-4'>Use intra-workout shake:</div>
+      <div class='col'>
+        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="intraWorkoutShake"
+          [(ngModel)]="user.numberOfMeals" (change)="onTextChanged()">
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="0" [checked]="true">No
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="1">Yes
+          </label>
+        </div>
+      </div>
     </div>
 
   </div>
 
-</div>
+</div> -->
 <br />

@@ -1,40 +1,119 @@
 <div class='card shadow custom-card'>
   <div class='card-header h4 header'>
-        Plan Summary
-    </div>
+    Plan Summary
+  </div>
 
-    <div class='card-body'>
-        <div class='row' style="margin: auto; text-align: center; display: block;">{{totalCalories | number:'1.0-0'}} CALORIES</div>
-        <div class='row'>
-            <div class='col'>{{totalCarbs | number:'1.0-0'}}g carbs ({{percentCarbs | number:'1.0-0'}}%)</div>
-            <div class='col'>{{totalProtein | number:'1.0-0'}}g protein ({{percentProtein | number:'1.0-0'}}%)</div>
-            <div class='col'>{{totalFat | number:'1.0-0'}}g fat ({{percentFat | number:'1.0-0'}}%)</div>
+  <div class='card-body'>
+    <div class='row h3' style="margin: auto; text-align: center; display: block;">{{totalCalories | number:'1.0-0'}}
+      CALORIES
+    </div>
+    <div class='row'>
+      <div class='col h6' style="text-align: center;">{{totalCarbs | number:'1.0-0'}}g CARBS
+        ({{percentCarbs | number:'1.0-0'}}%)</div>
+      <div class='col h6' style="text-align: center;">{{totalProtein | number:'1.0-0'}}g PROTEIN
+        ({{percentProtein | number:'1.0-0'}}%)</div>
+      <div class='col h6' style="text-align: center;">{{totalFat | number:'1.0-0'}}g FAT
+        ({{percentFat | number:'1.0-0'}}%)</div>
+    </div>
+  </div>
+</div>
+
+<br />
+
+<div class='card shadow custom-card'>
+  <div class='card-header h4 header'>
+    Plan Configuration
+  </div>
+  <div class='card-body'>
+    <div class='row'>
+      <div class='col-3'>Day Type:</div>
+      <div class='col'>
+        <div class="btn-group btn-group-toggle btn-group-sm btn-block" ngbRadioGroup name="daytype"
+          [(ngModel)]="dayTypeId" (change)="onTextChanged()">
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="0" [checked]="true">Rest
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="1">Light
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="2">Moderate
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="3">Hard
+          </label>
         </div>
+      </div>
     </div>
-
-    <div class='card-body'>
-        <div class='row'>
-            <div class='col-3'>Day Type:</div>
-            <div class='col'>
-                <div class="btn-group btn-group-toggle btn-group-sm btn-block" ngbRadioGroup name="daytype" [(ngModel)]="dayTypeId"
-                (change)="onTextChanged()">
-                <label ngbButtonLabel class="btn-dark">
-                  <input ngbButton type="radio" [value]="0" [checked]="true">Rest
-                </label>
-                <label ngbButtonLabel class="btn-dark">
-                  <input ngbButton type="radio" [value]="1">Light
-                </label>
-                <label ngbButtonLabel class="btn-dark">
-                  <input ngbButton type="radio" [value]="2">Moderate
-                </label>
-                <label ngbButtonLabel class="btn-dark">
-                  <input ngbButton type="radio" [value]="3">Hard
-                </label>
-              </div>
-            </div>
+    <br />
+    <div class='row'>
+      <div class='col-3'>Macro preference:</div>
+      <div class='col'>
+        <div class="btn-group btn-group-toggle btn-group-sm btn-block" ngbRadioGroup name="macroPreferences"
+          [(ngModel)]="user.macroPreferences" (change)="onTextChanged()">
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="1" [checked]="true">Highest Fat
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="2">High Fat
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="3">Balanced
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="4">High Carb
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="5">Highest Carb
+          </label>
         </div>
-
+      </div>
     </div>
+    <br />
+
+    <div class='row'>
+      <div class='col-4'>Number of meals:</div>
+      <div class='col'>
+        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="numberOfMeals"
+          [(ngModel)]="user.numberOfMeals" (change)="onTextChanged()">
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="4" [checked]="true">4
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="5">5
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="6">6
+          </label>
+        </div>
+      </div>
+
+      <div class='col-4'>Use intra-workout shake:</div>
+      <div class='col'>
+        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="intraWorkoutShake"
+          [(ngModel)]="workoutShake" (change)="onTextChanged()">
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="0" [checked]="true">No
+          </label>
+          <label ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" [value]="1">Yes
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-4'>Workout after meal:</div>
+      <div class='col'>
+        <div class="btn-group btn-group-toggle btn-group-sm" ngbRadioGroup name="workoutAfterMealChoice"
+          [(ngModel)]="workoutAfterMeal" (change)="onTextChanged()">
+          <label *ngFor='let m of mealNumbers' ngbButtonLabel class="btn-dark">
+            <input ngbButton type="radio" value="{{m+1}}">{{m+1}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <br />

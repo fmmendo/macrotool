@@ -28,6 +28,10 @@ export class PlanSummaryComponent implements OnInit, OnDestroy {
   percentProtein: number;
   percentFat: number;
 
+  workoutAfterMeal: number;
+  workoutShake: boolean;
+  mealNumbers: number[];
+
   readonly dayTypes: string[] = [
     'rest', 'light', 'moderate', 'hard'//, 'veryhard'//, 'custom'
   ];
@@ -37,6 +41,7 @@ export class PlanSummaryComponent implements OnInit, OnDestroy {
     this.mealPlanSubscription = this.planBuilder.mealPlan$.subscribe(mp => {
       this.mealPlan = mp;
       this.updateTotals();
+      this.mealNumbers = [...Array(this.user.numberOfMeals - 1).keys()]
     });
   }
 
@@ -57,44 +62,23 @@ export class PlanSummaryComponent implements OnInit, OnDestroy {
   }
 
   private populateMealPlanIfEmpty() {
-    console.log("summary populate")
-    // if (this.user.plan.details == undefined || this.user.plan.details.size == undefined) {
-    //   this.user.plan.details = new Record();
-    // }
     for (let i = 0; i < this.dayTypes.length; i++) {
       if (!this.user.plan.details[this.dayTypes[i]] != null) {
-        let details = new PlanDetails();
-        // details.dayType = this.dayTypes[i];
-        // details.mealPlan = new Array<Meal>();
-        this.user.plan.details[this.dayTypes[i]] = details;
+        this.user.plan.details[this.dayTypes[i]] = new PlanDetails();
       }
     }
 
     this.userService.saveUser(this.user);
-    console.log("summary done " + JSON.stringify(this.user.plan))
 
   }
 
   onTextChanged() {
-    console.log(this.dayTypeId);
-    console.log(this.dayTypes[this.dayTypeId]);
     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
+    this.mealNumbers = [...Array(this.user.numberOfMeals - 1).keys()]
 
-    // switch (this.dayTypeId) {
-    //   case 1:
-    //     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
-    //     break;
-    //   case 2:
-    //     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
-    //     break;
-    //   case 3:
-    //     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
-    //     break;
-    //   case 4:
-    //     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
-    //     break;
-    // }
-
+    this.user.plan.details[this.dayTypes[this.dayTypeId]].workoutAfterMeal = this.workoutAfterMeal;
+    this.user.plan.details[this.dayTypes[this.dayTypeId]].useWorkoutShake = this.workoutShake;
+    this.userService.saveUser(this.user);
     this.updateTotals();
   }
 

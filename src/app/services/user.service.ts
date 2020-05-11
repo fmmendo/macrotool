@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../data/user';
-import { Plan } from '../data/plan';
+import { Plan, PlanDetails } from '../data/plan';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -17,6 +17,7 @@ export class UserService {
 
   saveUser(user: User) {
     localStorage.setItem(this.key_user, JSON.stringify(user));
+    this.userSource.next(user);
   }
 
   getUser() {
@@ -40,6 +41,13 @@ export class UserService {
 
     if (user.plan == null) {
       user.plan = new Plan();
+
+      user.plan.details = {
+        rest: new PlanDetails(),
+        light: new PlanDetails(),
+        moderate: new PlanDetails(),
+        hard: new PlanDetails(),
+      }
     }
     return user;
   }

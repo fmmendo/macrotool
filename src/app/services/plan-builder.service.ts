@@ -21,7 +21,6 @@ export class PlanBuilderService {
   private carbsGrams: number;
   private fatGrams: number;
   private minCarbsModifier: number;
-  private totalCalories: number;
 
   private mealPlanSource = new Subject<Meal[]>();
   mealPlan$ = this.mealPlanSource.asObservable();
@@ -188,14 +187,18 @@ export class PlanBuilderService {
     availableCalories -= this.carbsGrams * 4;
 
     this.fatGrams = minimumFat + (availableCalories / 9);
-
-    this.totalCalories = this.proteinGrams * 4 + this.carbsGrams * 4 + this.fatGrams * 9;
   }
 
   private generateMealPlan(user: User, selectedDayType: string) {
 
     let useShake = false;
     let workoutAfterMeal = 1;
+    if (user.plan.details[selectedDayType] != undefined) {
+      workoutAfterMeal = user.plan.details[selectedDayType].workoutAfterMeal ?? 1;
+      useShake = user.plan.details[selectedDayType].useWorkoutShake ?? false;
+    }
+    console.log("useShake="+useShake)
+    console.log("workoutAfterMeal="+workoutAfterMeal)
     // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
     // let details = user.plan.details[selectedDayType] ?? null;
 
@@ -218,6 +221,7 @@ export class PlanBuilderService {
         meal.fat = -1;
       }
       meal.protein = Math.round(this.proteinGrams / numberOfMeals);
+      meal.setCalories();
       this.mealPlan.push(meal);
     }
 
@@ -272,6 +276,8 @@ export class PlanBuilderService {
             this.mealPlan[i].fat = this.fatGrams * (.8 / 4);
           }
         }
+        this.mealPlan[i].setCalories();
+        
       }
 
       if (useShake && selectedDayType != 'rest') {
@@ -279,22 +285,24 @@ export class PlanBuilderService {
         const shakeProtein = this.mealPlan[workoutAfterMeal - 1].protein / 2;
         this.mealPlan[workoutAfterMeal - 1].carbs = shakeCarbs;
         this.mealPlan[workoutAfterMeal - 1].protein = shakeProtein;
-
+        this.mealPlan[workoutAfterMeal - 1].setCalories()
         const shake = new Meal();
-        shake.tag = "intra-workout";
+        shake.name = "Shake";
         shake.carbs = shakeCarbs;
         shake.protein = shakeProtein;
         shake.fat = 0;
+        shake.setCalories();
 
         this.mealPlan.splice(workoutAfterMeal, 0, shake);
       }
     }
 
-    let nom = useShake ? numberOfMeals + 1 : numberOfMeals;
-
-    for (let i = 0; i < nom; i++) {
-      this.mealPlan[i].setCalories();
-    }
+    // let nom = useShake ? numberOfMeals + 1 : numberOfMeals;
+    // console.log("numberOfMeals="+numberOfMeals)
+    // console.log("nom="+nom)
+    // for (let i = 0; i < nom; i++) {
+    //   this.mealPlan[i].setCalories();
+    // }
   }
 
 

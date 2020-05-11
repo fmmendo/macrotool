@@ -59,7 +59,7 @@ $large               : "only screen and (min-width: 62.5em)";
 .header {
     background-color: $header-color;
     color: $white;
-    text-align: center;
+    // text-align: center;
     @include clearfix;
     word-wrap: break-word;
     text-transform: uppercase;
