@@ -5,12 +5,12 @@ An Angular app that creates a meal plan based on details speficic to your workou
 ## Phase 1
 - [x] LocalStorage user profile
 - [x] Settings
-- [ ] Plan Builder
+- [x] Plan Builder
 - [ ] FAQ
-- [ ] Styling
+- [x] Bootstrap
 
 ## Phase 2
-- [ ] Deploy build to `gh-pages`
+- [x] Deploy build to `gh-pages`
 - [ ] PWA
 - [ ] Github Actions to audo-deploy build?
 
