@@ -47,10 +47,7 @@ export class PlanSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userService.getUser();
-    // 
-    // this.mealPlan = this.planBuilder.getGeneratedPlan(this.user, "rest");
     this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[0]);
-
 
     this.populateMealPlanIfEmpty();
     this.updateTotals();
@@ -69,17 +66,17 @@ export class PlanSummaryComponent implements OnInit, OnDestroy {
     }
 
     this.userService.saveUser(this.user);
-
   }
 
   onTextChanged() {
-    this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
     this.mealNumbers = [...Array(this.user.numberOfMeals - 1).keys()]
-
     this.user.plan.details[this.dayTypes[this.dayTypeId]].workoutAfterMeal = this.workoutAfterMeal;
     this.user.plan.details[this.dayTypes[this.dayTypeId]].useWorkoutShake = this.workoutShake;
-    this.userService.saveUser(this.user);
+    
+    this.planBuilder.getGeneratedPlan(this.user, this.dayTypes[this.dayTypeId]);
     this.updateTotals();
+
+    this.userService.saveUser(this.user);
   }
 
   updateTotals() {

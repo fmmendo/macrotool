@@ -65,10 +65,6 @@ export class PlanBuilderService {
   }
 
   private generateMacros(user: User, selectedDayType: string) {
-
-    // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
-    // this.customDetails = user.plan.details.filter(item => item.dayType == selectedDayType)[0];
-
     const weightInPounds = this.toPounds(user.weight);
     const minimumFat = 0.3 * weightInPounds;
     this.proteinGrams = weightInPounds;
@@ -197,14 +193,8 @@ export class PlanBuilderService {
       workoutAfterMeal = user.plan.details[selectedDayType].workoutAfterMeal ?? 1;
       useShake = user.plan.details[selectedDayType].useWorkoutShake ?? false;
     }
-    console.log("useShake="+useShake)
-    console.log("workoutAfterMeal="+workoutAfterMeal)
-    // this.customDetailsIndex = user.plan.details.findIndex(item => item.dayType == selectedDayType);
-    // let details = user.plan.details[selectedDayType] ?? null;
 
-    let numberOfMeals = user.numberOfMeals; //todo: default?
-    // useShake = details?.useWorkoutShake ?? false; //todo: default?
-    // workoutAfterMeal = details?.workoutAfterMeal ?? 1; //todo: default?
+    let numberOfMeals = user.numberOfMeals ?? 5; 
 
     this.mealPlan = new Array();
     for (let i = 0; i < numberOfMeals; i++) {
@@ -286,6 +276,7 @@ export class PlanBuilderService {
         this.mealPlan[workoutAfterMeal - 1].carbs = shakeCarbs;
         this.mealPlan[workoutAfterMeal - 1].protein = shakeProtein;
         this.mealPlan[workoutAfterMeal - 1].setCalories()
+
         const shake = new Meal();
         shake.name = "Shake";
         shake.carbs = shakeCarbs;
@@ -296,13 +287,6 @@ export class PlanBuilderService {
         this.mealPlan.splice(workoutAfterMeal, 0, shake);
       }
     }
-
-    // let nom = useShake ? numberOfMeals + 1 : numberOfMeals;
-    // console.log("numberOfMeals="+numberOfMeals)
-    // console.log("nom="+nom)
-    // for (let i = 0; i < nom; i++) {
-    //   this.mealPlan[i].setCalories();
-    // }
   }
 
 
